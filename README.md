@@ -66,7 +66,10 @@ If you found this guide useful, please consider
 
 ## Assumptions
 
-This guide assumes you've already set up your fork and local clone, and have the "upstream" `micropython/micropython` repository as a remote named `origin`, and your fork as a second remote (e.g. named the same as your GitHub username).
+This guide assumes you've already set up your fork and local clone, and have
+the "upstream" `micropython/micropython` repository as a remote named
+`origin`, and your fork as a second remote (e.g. named the same as your GitHub
+username).
 
 For example, I have:
 
@@ -78,7 +81,12 @@ origin  git@github.com:micropython/micropython.git (fetch)
 origin  git@github.com:micropython/micropython.git (push)
 ```
 
-These remotes can be named whatever you like, but the rest of the guide will use `origin` to mean "the remote that is `micropython/micropython`, and `jimmo` to mean the remote that points to my fork. Substitute `jimmo` in this guide with your username.
+**These remotes can be named whatever you like**, but the rest of the guide
+will use `origin` to mean "the remote that is `micropython/micropython`, and
+`jimmo` to mean the remote that points to my fork. Substitute `jimmo` in this
+guide with your username.
+
+### Other remote naming schemes
 
 It is also common to use `origin` as the remote pointing to your fork, and
 `upstream` to mean `micropython/micropython`. I discourage this because
@@ -90,7 +98,31 @@ b) "upstream" can be confused with the concept of a branch's "upstream branch"
    (i.e. the `--set-upstream` flag in `git push`).
 c) It is common for a contributor to first start as a MicroPython user, i.e.
    the first repo they clone will be `micropython/micropython`, hence that
-   will be their `origin`.
+   will be their `origin`, then later they create and add their fork as a
+   remote.
+d) On every project I work with, `origin` is always the "source" (i.e. the
+   main project). `origin/master` (or ideally, `origin/main`) is _always_ the
+   latest code for the project. This is true regardless of whether it's one of
+   my tiny repos or a big project (e.g. Zephyr or MicroPython).
+e) Sometimes you want to add other remotes (e.g. other contributors, or
+   downstream forks, and this allows you to keep with the pattern of using the
+   username, e.g. `adafruit`).
+
+But as above, you are welcome to set it up this way too. For example:
+
+```bash
+$ git remote -v
+origin    git@github.com:jimmo/micropython.git (fetch)
+origin    git@github.com:jimmo/micropython.git (push)
+upstream  git@github.com:micropython/micropython.git (fetch)
+upstream  git@github.com:micropython/micropython.git (push)
+```
+
+And then you would use `git fetch upstream` anywhere I have written `git fetch
+origin` below, and `git push -u origin` where I have written `git push -u
+jimmo` below.
+
+### Authentication
 
 Note these remotes all use `git@`, i.e. they rely on having set up [SSH key
 authentication to GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh). You can also [set up a passkey](https://docs.github.com/en/authentication/authenticating-with-a-passkey/about-passkeys).
@@ -125,10 +157,11 @@ The typical workflow is:
 git fetch origin
 ```
 
-2. Create a new branch to work on your feature / fix, based on the latest code:
+2. Create a new branch to work on your feature / fix, based on the latest
+   code, and switch to it:
 
 ```
-git checkout -b <branchname> origin/master
+git switch -c <new-branch> origin/master
 ```
 
 3. Implement your feature:
@@ -451,8 +484,15 @@ TODO
 
 ## Sign off
 
-See the [MicroPython Code Conventions](https://github.com/micropython/micropython/blob/master/CODECONVENTIONS.md#git-commit-conventions)
+This is MicroPython's equivalent of a [Developer Certificate of Origin](https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin). See also
+[The Developer Certificate of Origin is a great alternative to a CLA](https://drewdevault.com/2021/04/12/DCO.html).
 
-This is MicroPython's equivalent of a [Developer Certificate of Origin](https://en.wikipedia.org/wiki/Developer_Certificate_of_Origin). See also [The Developer Certificate of Origin is a great alternative to a CLA](https://drewdevault.com/2021/04/12/DCO.html).
+See the [MicroPython Code Conventions](https://github.com/micropython/micropython/blob/master/CODECONVENTIONS.md#git-commit-conventions)
+for more details and the background about why the MicroPython project requires
+this.
 
 It is not the same thing as "commit signing", i.e. anything about PGP keys or cryptography is not relevant to this.
+
+In most cases, if you always remember to use `git commit -s` you'll never need
+to worry about this. You can use `git commit --amend -s` to add the sign-off
+you a commit you just created.
