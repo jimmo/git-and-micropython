@@ -393,6 +393,39 @@ git push -f
 
 to update the PR.
 
+### I want to test someone's PR
+
+If you know the PR number, you can make a local branch with the contents of
+that PR.
+
+```bash
+git fetch origin pull/<PR>/head:<username>_<branchname>
+git switch <username>_<branchname>
+```
+
+If you plan to make changes, you may want to create your own branch from this
+point.
+
+If they update the PR, you can use:
+
+```bash
+git fetch -f origin pull/<PR>/head:<username>_<branchname>
+```
+
+to force update it from the remote. If you are currently on this branch, you
+must temporarily switch to another branch before doing this, e.g.
+
+```
+git switch --detach
+git fetch -f origin pull/<PR>/head:<username>_<branchname>
+git switch -
+```
+
+which will detach HEAD, fetch the branch, then switch back to the branch.
+
+_Note: You can use anything you like in place of `<username>_<branchname>` as
+the local branch name, this is just my convention._
+
 # Concepts
 
 ## Remotes & forks
