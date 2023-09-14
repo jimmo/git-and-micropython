@@ -1,8 +1,13 @@
 # Git and MicroPython
 
-A guide for using git with the MicroPython project. The advice here is
-tailored specifically to the workflow used by the MicroPython project, but
-should apply generally to most projects that use git and GitHub.
+A guide for using git with the [MicroPython project](https://github.com/micropython/micropython).
+The advice here is tailored specifically to the workflow used by the
+MicroPython project, but should apply generally to most projects that use git
+and GitHub.
+
+The advice here has been collected from personal experience of several years
+of working as a maintainer on the MicroPython project, and aims to address the
+common scenarios that contributors might run into.
 
 ## Status
 
@@ -25,9 +30,9 @@ If you found this guide useful, please consider
 
 ## Quick notes
 
-* Don't use the GitHub Desktop tool or the `gh` client. These are good tools,
-  but designed with a different workflow in mind. Instead use the `git`
-  command line tool.
+* Don't use the GitHub Desktop tool, and prefer to use `git` directly rather
+  than GitHub's `gh` client. These are good tools, but designed with a
+  different workflow in mind.
 * It can however be very helpful to use a graphical git client for some
   operations. For example, I highly recommend
   [https://www.sublimemerge.com/](https://www.sublimemerge.com/) especially
@@ -37,8 +42,9 @@ If you found this guide useful, please consider
 * Force push (i.e. `git push -f`) is totally normal and a required part of the
   PR workflow (despite what some guides will tell you).
 * You almost never need to close and create a new PR to resolve an issue with
-  your PR / commits.
-* Never use `git merge`.
+  your PR / commits. If you think you need to close your PR to update it, please
+  raise an issue against this repo to describe your scenario and I can help you.
+* Never use `git merge`. MicroPython maintains a completely linear history.
 * You almost never need to use `git pull`. The one exception is if you want to
   update the master branch with the latest changes. I prefer to work with
   "detached head" for this, i.e. `git fetch origin; git switch --detach origin/master`.
@@ -69,6 +75,9 @@ a) It feels "natural" that `origin/master` should be the latest upstream code.
    to keep your fork's `master` branch updated.
 b) "upstream" can be confused with the concept of a branch's "upstream branch"
    (i.e. the `--set-upstream` flag in `git push`).
+c) It is common for a contributor to first start as a MicroPython user, i.e.
+   the first repo they clone will be `micropython/micropython`, hence that
+   will be their `origin`.
 
 Note these remotes all use `git@`, i.e. they rely on having set up [SSH key
 authentication to GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh). You can also [set up a passkey](https://docs.github.com/en/authentication/authenticating-with-a-passkey/about-passkeys).
