@@ -1,5 +1,7 @@
 # Git and MicroPython
 
+[![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
+
 A guide for using git with the [MicroPython project](https://github.com/micropython/micropython).
 The advice here is tailored specifically to the workflow used by the
 MicroPython project, but should apply generally to most projects that use git
@@ -13,6 +15,17 @@ common scenarios that contributors might run into.
 
 DRAFT. Currently this is a work in progress, many of the snippets have not
 been tested.
+
+Copyright © 2023 [Jim Mussared](https://github.com/jimmo)
+
+This work is licensed under a
+[Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa].
+
+[![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa]
+
+[cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
+[cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
+[cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
 
 ## Contributing
 
