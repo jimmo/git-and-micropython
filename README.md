@@ -181,11 +181,17 @@ you're using the instructions above). The `-u` flag will make this the
 "upstream" for this branch, so that subsequent pushes will automatically go
 there.
 
-### I forgot to sign off a commit
+### I need to fix a commit message
 
-You can use the `-s` flag to `git commit` to add the `Signed-Off-By` line, but
-it's easy to forget. The automated checks will flag this when you create the
-PR.
+The MicroPython CI will fail if the commit messages aren't formatted according
+to the [code conventions](https://github.com/micropython/micropython/blob/master/CODECONVENTIONS.md#git-commit-conventions).
+
+You can click on "Details" on the failing "Check commit message formatting"
+check and see the output from the verification tool.
+
+To fix the commit messages, you need to amend the commits and then force push
+the branch. The process to do this depends on whether you have multiple
+commits or just a single commit.
 
 #### My PR only has one commit
 
@@ -198,11 +204,11 @@ git push -f
 ```
 
 This will amend the commit, and `-s` will automatically add the
-`Signed-Off-By` line.
+`Signed-Off-By` line if necessary.
 
 #### My PR has multiple commits
 
-Run
+This is done by using the "reword" feature of `git rebase`.
 
 ```bash
 git fetch origin
@@ -210,14 +216,58 @@ git switch <branchname>
 git rebase -i origin/master
 ```
 
-Then for each commit you need to update, change `pick` to `edit`, then run
+Then for each commit you need to update, change `pick` to `reword` in the
+interactive TODO list. This will prompt you to edit the commit message for
+each of the selected commits.
+
+Finally force-push the branch with
+
+```bash
+git push -f
+```
+
+to update the PR.
+
+### I forgot to sign off a commit
+
+You can use the `-s` flag to `git commit` to add the `Signed-Off-By` line, but
+it's easy to forget, and so the automated checks will flag this if your
+commits are missing it.
+
+The way to fix this is similar as for the scenario above to update your commit
+messages. The `-s` flag to `git commit --amend` will add the `Signed-Off-By`
+line automatically if it's not already present.
+
+#### My PR only has one commit
+
+Run
+
+```bash
+git switch <branchname>
+git commit --amend -s
+git push -f
+```
+
+#### My PR has multiple commits
+
+The way to do this is essentially the same as for a single commit, except by
+using `git rebase` to do it for each commit in the branch.
+
+```bash
+git fetch origin
+git switch <branchname>
+git rebase -i origin/master
+```
+
+Then for each commit you need to update, change `pick` to `edit` in the interactive TODO
+list. Then you can run
 
 ```bash
 git commit --amend -s
 git rebase --continue
 ```
 
-for each commit, and then run
+for each commit, and finally force-push the branch with
 
 ```bash
 git push -f
